@@ -1,0 +1,27 @@
+//
+//  UITextField+.swift
+//  Baemin
+//
+//  Created by 진소은 on 10/28/25.
+//
+
+import UIKit
+
+extension UITextField {
+    func addPadding(_ width: CGFloat = 10) {
+        addLeftPadding(width)
+        addRightPadding(width)
+    }
+    
+    func addLeftPadding(_ width: CGFloat = 10) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
+        self.leftView = paddingView
+        self.leftViewMode = ViewMode.always
+    }
+    
+    func addRightPadding(_ width: CGFloat = 10) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: self.frame.height))
+        self.rightView = paddingView
+        self.rightViewMode = ViewMode.always
+    }
+}
