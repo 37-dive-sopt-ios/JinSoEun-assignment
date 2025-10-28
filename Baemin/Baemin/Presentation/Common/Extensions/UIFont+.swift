@@ -30,7 +30,7 @@ extension UIFont {
         case caption_r_10
     }
     
-    static func suit(_ style: SuitStyle) -> UIFont {
+    static func pretendard(_ style: SuitStyle) -> UIFont {
         switch style {
         case .head_b_24: return .pretendard(weight: .Bold, size: 24)
         case .head_b_18: return .pretendard(weight: .Bold, size: 18)

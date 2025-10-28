@@ -19,7 +19,7 @@
 		B02922642EAD43120085E186 /* Exceptions for "Baemin" folder in "Baemin" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Presentation/Common/Resources/Info.plist,
 			);
 			target = B02922512EAD430F0085E186 /* Baemin */;
 		};
