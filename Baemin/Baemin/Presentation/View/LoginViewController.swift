@@ -17,6 +17,9 @@ class LoginViewController: UIViewController {
     private let navigationBar = CustomNavigationBar(title: "이메일 또는 아이디로 계속")
     private let idTextField = UITextField()
     private let passwordTextField = UITextField()
+    private let clearButton = UIButton()
+    private let secureButton = UIButton()
+    private let passwordStackView = UIStackView()
     private let loginButton = CTAButton()
     
     // MARK: - Life Cycle
@@ -59,13 +62,31 @@ class LoginViewController: UIViewController {
             $0.isSecureTextEntry = true
         }
         
+        clearButton.do {
+            $0.setImage(.icClear, for: .normal)
+            $0.isHidden = true
+            $0.addTarget(self, action: #selector(clearButtonDidTapped), for: .touchUpInside)
+        }
+        
+        secureButton.do {
+            $0.setImage(.icEyeHide, for: .normal)
+            $0.isHidden = true
+            $0.addTarget(self, action: #selector(secureButtonDidTapped), for: .touchUpInside)
+        }
+        
+        passwordStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 16
+        }
+        
         loginButton.configure(style: .inactive, title: "로그인")
     }
     
     // MARK: - Set Layout
     
     private func setLayout() {
-        view.addSubviews(navigationBar, idTextField, passwordTextField, loginButton)
+        view.addSubviews(navigationBar, idTextField, passwordTextField, passwordStackView, loginButton)
+        passwordStackView.addArrangedSubviews(clearButton, secureButton)
         
         navigationBar.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -83,6 +104,11 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(idTextField.snp.bottom).offset(12)
             $0.height.equalTo(46)
             $0.horizontalEdges.equalToSuperview().inset(16)
+        }
+        
+        passwordStackView.snp.makeConstraints {
+            $0.trailing.equalTo(passwordTextField.snp.trailing).inset(20)
+            $0.centerY.equalTo(passwordTextField)
         }
         
         loginButton.snp.makeConstraints {
@@ -103,6 +129,22 @@ class LoginViewController: UIViewController {
     }
     
     @objc
+    func clearButtonDidTapped() {
+        passwordTextField.text = ""
+    }
+    
+    @objc
+    func secureButtonDidTapped() {
+        if passwordTextField.isSecureTextEntry {
+            passwordTextField.isSecureTextEntry = false
+            secureButton.setImage(.icEyeOpen, for: .normal)
+        } else {
+            passwordTextField.isSecureTextEntry = true
+            secureButton.setImage(.icEyeHide, for: .normal)
+        }
+    }
+    
+    @objc
     func textFieldDidChange(_ textField: UITextField) {
         let idText = idTextField.text ?? ""
         let pwText = passwordTextField.text ?? ""
@@ -112,11 +154,21 @@ class LoginViewController: UIViewController {
     @objc
     func textFieldEditingDidBegin(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.baeminBlack.cgColor
+        
+        if (textField == passwordTextField) {
+            clearButton.isHidden = false
+            secureButton.isHidden = false
+        }
     }
     
     @objc
     func textFieldEditingDidEnd(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.baeminGray200.cgColor
+        
+        if (textField == passwordTextField) {
+            clearButton.isHidden = true
+            secureButton.isHidden = true
+        }
     }
 }
 

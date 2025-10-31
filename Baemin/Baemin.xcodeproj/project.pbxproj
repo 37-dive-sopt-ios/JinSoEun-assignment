@@ -25,11 +25,22 @@
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		B01C585D2EB4793600A1C49C /* Exceptions for "Baemin" folder in "Copy Bundle Resources" phase from "Baemin" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = B02922502EAD430F0085E186 /* Resources */;
+			membershipExceptions = (
+				"Presentation/Common/Extensions/UIStackView+.swift",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		B02922542EAD430F0085E186 /* Baemin */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				B02922642EAD43120085E186 /* Exceptions for "Baemin" folder in "Baemin" target */,
+				B01C585D2EB4793600A1C49C /* Exceptions for "Baemin" folder in "Copy Bundle Resources" phase from "Baemin" target */,
 			);
 			path = Baemin;
 			sourceTree = "<group>";
