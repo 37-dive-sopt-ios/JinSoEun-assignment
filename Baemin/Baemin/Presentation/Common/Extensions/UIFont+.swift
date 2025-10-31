@@ -13,6 +13,14 @@ extension UIFont {
         case Black, Bold, ExtraBold, ExtraLight, Light, Medium, Regular, Semibold, Thin
     }
     
+    enum SuitStyle {
+        case head_b_24
+        case head_b_18
+        case title_sb_18
+        case body_r_14
+        case caption_r_10
+    }
+    
     static func pretendard(weight: Family = .Regular, size: CGFloat) -> UIFont {
         if let font = UIFont(name: "Pretendard-\(weight.rawValue)", size: size) {
             return font
@@ -20,14 +28,6 @@ extension UIFont {
             print("Pretendard-\(weight.rawValue) loading failed, fallback to system font")
             return .systemFont(ofSize: size)
         }
-    }
-    
-    enum SuitStyle {
-        case head_b_24
-        case head_b_18
-        case title_sb_18
-        case body_r_14
-        case caption_r_10
     }
     
     static func pretendard(_ style: SuitStyle) -> UIFont {
