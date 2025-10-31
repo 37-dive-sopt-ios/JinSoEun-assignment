@@ -36,6 +36,12 @@ final class WelcomeViewController: UIViewController {
     // MARK: - Set UI
     
     private func setUI() {
+        view.backgroundColor = .white
+        
+        navigationBar.onBackButtonTapped = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
         welcomeImageView.do {
             $0.image = UIImage(named: "img_welcome")
         }
@@ -48,13 +54,16 @@ final class WelcomeViewController: UIViewController {
         }
         
         userLabel.do {
-            $0.text = "ㅇㅇ님 반가워요!"
             $0.font = .pretendard(.title_sb_18)
             $0.textColor = .baeminBlack
             $0.textAlignment = .center
+            $0.numberOfLines = 0
         }
         
         backButton.configure(style: .active, title: "뒤로가기")
+        backButton.do {
+            $0.addTarget(self, action: #selector(backButtonDidTapped), for: .touchUpInside)
+        }
     }
     
     // MARK: - Set Layout
@@ -81,8 +90,7 @@ final class WelcomeViewController: UIViewController {
         
         userLabel.snp.makeConstraints {
             $0.top.equalTo(welcomeLabel.snp.bottom).offset(16)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(18)
+            $0.horizontalEdges.centerX.equalToSuperview()
         }
         
         backButton.snp.makeConstraints {
@@ -91,8 +99,25 @@ final class WelcomeViewController: UIViewController {
             $0.height.equalTo(52)
         }
     }
+    
+    // MARK: - Public Methods
+    
+    public func setName(name: String?) {
+        self.name = name
+        self.userLabel.text = "\(name ?? "nil")님 \n반가워요!"
+    }
+    
+    // MARK: - Actions
+    
+    @objc
+    func backButtonDidTapped() {
+        if self.navigationController == nil {
+            self.dismiss(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
 }
-
 
 #Preview {
     WelcomeViewController()

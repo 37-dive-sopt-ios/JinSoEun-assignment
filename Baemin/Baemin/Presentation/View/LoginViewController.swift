@@ -27,6 +27,13 @@ class LoginViewController: UIViewController {
     
     // MARK: - Life Cycle
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        idTextField.text = ""
+        passwordTextField.text = ""
+        loginButton.isEnabled = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -147,7 +154,14 @@ class LoginViewController: UIViewController {
         }
     }
     
-    // MARK: - Actions
+    // MARK: - Override
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        view.endEditing(true)
+    }
+    
+    // MARK: - Private Methods
     
     private func setTextFieldActions() {
         [idTextField, passwordTextField].forEach {
@@ -156,6 +170,14 @@ class LoginViewController: UIViewController {
             $0.addTarget(self, action: #selector(textFieldEditingDidEnd), for: .editingDidEnd)
         }
     }
+    
+    private func pushToWelcomeVC() {
+        let welcomeVC = WelcomeViewController()
+        welcomeVC.setName(name: idTextField.text)
+        self.navigationController?.pushViewController(welcomeVC, animated: true)
+    }
+    
+    // MARK: - Actions
     
     @objc
     func clearButtonDidTapped() {
@@ -190,6 +212,9 @@ class LoginViewController: UIViewController {
             let ok = UIAlertAction(title: "확인", style: .cancel)
             alertController.addAction(ok)
             present(alertController, animated: true)
+        } else {
+            pushToWelcomeVC()
+            view.endEditing(true)
         }
     }
     
