@@ -44,12 +44,6 @@ final class CTAButton: UIButton {
         clipsToBounds = true
     }
     
-    // MARK: - Private Methods
-    
-    public func updateBackgroundColor() {
-        backgroundColor = isEnabled ? .baeminMint500 : .baeminGray200
-    }
-    
     // MARK: - Public Methods
     
     public func configure(style: CTAButtonStyle, title: String) {
