@@ -16,10 +16,10 @@ class LoginViewController: UIViewController {
     
     private let navigationBar = CustomNavigationBar(title: "이메일 또는 아이디로 계속")
     private let idTextField = UITextField()
+    private let passwordStackView = UIStackView()
     private let passwordTextField = UITextField()
     private let clearButton = UIButton()
     private let secureButton = UIButton()
-    private let passwordStackView = UIStackView()
     private let loginButton = CTAButton()
     private let findAccountStackView = UIStackView()
     private let findAccountLabel = UILabel()
@@ -59,6 +59,12 @@ class LoginViewController: UIViewController {
             $0.layer.cornerRadius = 4
         }
         
+        passwordStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 16
+            $0.alignment = .center
+        }
+        
         passwordTextField.do {
             $0.textColor = .baeminBlack
             $0.font = .pretendard(.body_r_14)
@@ -82,12 +88,6 @@ class LoginViewController: UIViewController {
             $0.setImage(.icEyeHide, for: .normal)
             $0.isHidden = true
             $0.addTarget(self, action: #selector(secureButtonDidTapped), for: .touchUpInside)
-        }
-        
-        passwordStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 16
-            $0.alignment = .center
         }
         
         loginButton.configure(style: .inactive, title: "로그인")
@@ -199,7 +199,11 @@ class LoginViewController: UIViewController {
     @objc
     func loginButtonDidTapped() {
         if idTextField.text?.isValidEmail == false {
-            let alertController = UIAlertController(title: "알림", message: "이메일 형식을 확인하세요", preferredStyle: .alert)
+            let alertController = UIAlertController(
+                title: "알림",
+                message: "이메일 형식을 확인하세요",
+                preferredStyle: .alert
+            )
             let ok = UIAlertAction(title: "확인", style: .cancel)
             alertController.addAction(ok)
             present(alertController, animated: true)
@@ -228,7 +232,6 @@ class LoginViewController: UIViewController {
     @objc
     func textFieldEditingDidBegin(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.baeminBlack.cgColor
-        
         if (textField == passwordTextField) {
             clearButton.isHidden = false
             secureButton.isHidden = false
@@ -238,7 +241,6 @@ class LoginViewController: UIViewController {
     @objc
     func textFieldEditingDidEnd(_ textField: UITextField) {
         textField.layer.borderColor = UIColor.baeminGray200.cgColor
-        
         if (textField == passwordTextField) {
             clearButton.isHidden = true
             secureButton.isHidden = true

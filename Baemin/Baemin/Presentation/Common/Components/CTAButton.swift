@@ -18,6 +18,7 @@ final class CTAButton: UIButton {
     // MARK: - Properties
 
     private var style: CTAButtonStyle = .inactive
+    
     // MARK: - Life Cycle
     
     init() {
