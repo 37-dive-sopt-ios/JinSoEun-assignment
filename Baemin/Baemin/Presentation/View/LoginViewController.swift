@@ -39,6 +39,7 @@ class LoginViewController: UIViewController {
             $0.font = .pretendard(.body_r_14)
             $0.addPadding(10)
             $0.placeholder = "이메일 아이디"
+            $0.setPlaceholder(color: .baeminGray200)
             $0.borderStyle = .none
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(.baeminGray200).cgColor
@@ -50,6 +51,7 @@ class LoginViewController: UIViewController {
             $0.font = .pretendard(.body_r_14)
             $0.addPadding(10)
             $0.placeholder = "비밀번호"
+            $0.setPlaceholder(color: .baeminGray200)
             $0.borderStyle = .none
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(.baeminGray200).cgColor
