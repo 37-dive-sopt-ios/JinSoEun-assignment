@@ -11,7 +11,7 @@ import SnapKit
 import Then
 
 class LoginViewController: UIViewController {
-        
+    
     // MARK: - UI Components
     
     private let navigationBar = CustomNavigationBar(title: "이메일 또는 아이디로 계속")
@@ -21,6 +21,9 @@ class LoginViewController: UIViewController {
     private let secureButton = UIButton()
     private let passwordStackView = UIStackView()
     private let loginButton = CTAButton()
+    private let findAccountStackView = UIStackView()
+    private let findAccountLabel = UILabel()
+    private let detailButton = UIButton()
     
     // MARK: - Life Cycle
     
@@ -42,7 +45,7 @@ class LoginViewController: UIViewController {
             $0.font = .pretendard(.body_r_14)
             $0.addPadding(10)
             $0.placeholder = "이메일 아이디"
-            $0.setPlaceholder(color: .baeminGray200)
+            $0.setPlaceholder(color: .baeminGray700)
             $0.borderStyle = .none
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(.baeminGray200).cgColor
@@ -54,7 +57,7 @@ class LoginViewController: UIViewController {
             $0.font = .pretendard(.body_r_14)
             $0.addPadding(10)
             $0.placeholder = "비밀번호"
-            $0.setPlaceholder(color: .baeminGray200)
+            $0.setPlaceholder(color: .baeminGray700)
             $0.borderStyle = .none
             $0.layer.borderWidth = 1
             $0.layer.borderColor = UIColor(.baeminGray200).cgColor
@@ -77,16 +80,34 @@ class LoginViewController: UIViewController {
         passwordStackView.do {
             $0.axis = .horizontal
             $0.spacing = 16
+            $0.alignment = .center
         }
         
         loginButton.configure(style: .inactive, title: "로그인")
+        
+        findAccountLabel.do {
+            $0.text = "계정 찾기"
+            $0.font = .pretendard(.body_r_14)
+            $0.textColor = .baeminBlack
+        }
+        
+        detailButton.do {
+            $0.setImage(.icChevronRight, for: .normal)
+        }
+        
+        findAccountStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 4
+            $0.alignment = .center
+        }
     }
     
     // MARK: - Set Layout
     
     private func setLayout() {
-        view.addSubviews(navigationBar, idTextField, passwordTextField, passwordStackView, loginButton)
+        view.addSubviews(navigationBar, idTextField, passwordTextField, passwordStackView, loginButton, findAccountStackView)
         passwordStackView.addArrangedSubviews(clearButton, secureButton)
+        findAccountStackView.addArrangedSubviews(findAccountLabel, detailButton)
         
         navigationBar.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
@@ -116,6 +137,11 @@ class LoginViewController: UIViewController {
             $0.height.equalTo(46)
             $0.horizontalEdges.equalToSuperview().inset(16)
         }
+        
+        findAccountStackView.snp.makeConstraints {
+            $0.top.equalTo(loginButton.snp.bottom).offset(32)
+            $0.centerX.equalToSuperview()
+        }
     }
     
     // MARK: - Actions
@@ -131,6 +157,7 @@ class LoginViewController: UIViewController {
     @objc
     func clearButtonDidTapped() {
         passwordTextField.text = ""
+        loginButton.isEnabled = false
     }
     
     @objc
