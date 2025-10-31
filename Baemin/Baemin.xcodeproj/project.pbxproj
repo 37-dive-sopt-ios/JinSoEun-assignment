@@ -30,6 +30,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = B02922502EAD430F0085E186 /* Resources */;
 			membershipExceptions = (
+				"Presentation/Common/Extensions/String+.swift",
 				"Presentation/Common/Extensions/UIStackView+.swift",
 			);
 		};

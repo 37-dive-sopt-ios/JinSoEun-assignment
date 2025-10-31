@@ -84,6 +84,9 @@ class LoginViewController: UIViewController {
         }
         
         loginButton.configure(style: .inactive, title: "로그인")
+        loginButton.do {
+            $0.addTarget(self, action: #selector(loginButtonDidTapped), for: .touchUpInside)
+        }
         
         findAccountLabel.do {
             $0.text = "계정 찾기"
@@ -168,6 +171,25 @@ class LoginViewController: UIViewController {
         } else {
             passwordTextField.isSecureTextEntry = true
             secureButton.setImage(.icEyeHide, for: .normal)
+        }
+    }
+    
+    @objc
+    func loginButtonDidTapped() {
+        if idTextField.text?.isValidEmail == false {
+            let alertController = UIAlertController(title: "알림", message: "이메일 형식을 확인하세요", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "확인", style: .cancel)
+            alertController.addAction(ok)
+            present(alertController, animated: true)
+        } else if passwordTextField.text?.isValidPassword == false {
+            let alertController = UIAlertController(
+                title: "알림",
+                message: "비밀번호 형식을 확인하세요\n8~16자 영문, 숫자, 특수문자 조합",
+                preferredStyle: .alert
+            )
+            let ok = UIAlertAction(title: "확인", style: .cancel)
+            alertController.addAction(ok)
+            present(alertController, animated: true)
         }
     }
     
