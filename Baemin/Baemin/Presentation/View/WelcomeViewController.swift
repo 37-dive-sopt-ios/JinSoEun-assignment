@@ -46,19 +46,7 @@ final class WelcomeViewController: UIViewController {
             $0.image = UIImage(named: "img_welcome")
         }
         
-        welcomeLabel.do {
-            $0.text = "환영합니다"
-            $0.font = .pretendard(.head_b_24)
-            $0.textColor = .baeminBlack
-            $0.textAlignment = .center
-        }
-        
-        userLabel.do {
-            $0.font = .pretendard(.title_sb_18)
-            $0.textColor = .baeminBlack
-            $0.textAlignment = .center
-            $0.numberOfLines = 0
-        }
+        welcomeLabel.applyStyle(text: "환영합니다", font: .pretendard(.head_b_24))
         
         backButton.configure(style: .active, title: "뒤로가기")
         backButton.do {
@@ -72,7 +60,7 @@ final class WelcomeViewController: UIViewController {
         view.addSubviews(navigationBar, welcomeImageView, welcomeLabel, userLabel, backButton)
         
         navigationBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(42)
         }
         
@@ -104,7 +92,7 @@ final class WelcomeViewController: UIViewController {
     
     public func setName(name: String?) {
         self.name = name
-        self.userLabel.text = "\(name ?? "nil")님 \n반가워요!"
+        self.userLabel.applyStyle(text: "\(name ?? "nil")님 \n반가워요!", font: .pretendard(.title_sb_18), numberOfLines: 0)
     }
     
     // MARK: - Actions

@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     // MARK: - UI Components
     
@@ -39,7 +39,6 @@ class LoginViewController: UIViewController {
         
         setUI()
         setLayout()
-        setTextFieldActions()
     }
     
     // MARK: - Set UI
@@ -48,15 +47,8 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .white
         
         idTextField.do {
-            $0.textColor = .baeminBlack
-            $0.font = .pretendard(.body_r_14)
-            $0.addPadding(10)
-            $0.placeholder = "이메일 아이디"
-            $0.setPlaceholder(color: .baeminGray700)
-            $0.borderStyle = .none
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor(.baeminGray200).cgColor
-            $0.layer.cornerRadius = 4
+            configureTextField($0, placeholder: "이메일 아이디", isSecure: false)
+            configureTextFieldActions(for: $0)
         }
         
         passwordStackView.do {
@@ -66,16 +58,8 @@ class LoginViewController: UIViewController {
         }
         
         passwordTextField.do {
-            $0.textColor = .baeminBlack
-            $0.font = .pretendard(.body_r_14)
-            $0.addPadding(10)
-            $0.placeholder = "비밀번호"
-            $0.setPlaceholder(color: .baeminGray700)
-            $0.borderStyle = .none
-            $0.layer.borderWidth = 1
-            $0.layer.borderColor = UIColor(.baeminGray200).cgColor
-            $0.layer.cornerRadius = 4
-            $0.isSecureTextEntry = true
+            configureTextField($0, placeholder: "비밀번호", isSecure: true)
+            configureTextFieldActions(for: $0)
         }
         
         clearButton.do {
@@ -95,6 +79,13 @@ class LoginViewController: UIViewController {
             $0.addTarget(self, action: #selector(loginButtonDidTapped), for: .touchUpInside)
         }
         
+        
+        findAccountStackView.do {
+            $0.axis = .horizontal
+            $0.spacing = 4
+            $0.alignment = .center
+        }
+        
         findAccountLabel.do {
             $0.text = "계정 찾기"
             $0.font = .pretendard(.body_r_14)
@@ -105,11 +96,7 @@ class LoginViewController: UIViewController {
             $0.setImage(.icChevronRight, for: .normal)
         }
         
-        findAccountStackView.do {
-            $0.axis = .horizontal
-            $0.spacing = 4
-            $0.alignment = .center
-        }
+
     }
     
     // MARK: - Set Layout
@@ -163,19 +150,35 @@ class LoginViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    private func setTextFieldActions() {
-        [idTextField, passwordTextField].forEach {
-            $0.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-            $0.addTarget(self, action: #selector(textFieldEditingDidBegin), for: .editingDidBegin)
-            $0.addTarget(self, action: #selector(textFieldEditingDidEnd), for: .editingDidEnd)
-        }
-    }
-    
     private func pushToWelcomeVC() {
         let welcomeVC = WelcomeViewController()
         welcomeVC.setName(name: idTextField.text)
         self.navigationController?.pushViewController(welcomeVC, animated: true)
     }
+    
+    private func configureTextField(
+        _ textField: UITextField,
+        placeholder: String,
+        isSecure: Bool = false
+    ) {
+        textField.textColor = .baeminBlack
+        textField.font = .pretendard(.body_r_14)
+        textField.addPadding(10)
+        textField.placeholder = placeholder
+        textField.setPlaceholder(color: .baeminGray700)
+        textField.borderStyle = .none
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.baeminGray200.cgColor
+        textField.layer.cornerRadius = 4
+        textField.isSecureTextEntry = isSecure
+    }
+    
+    private func configureTextFieldActions(for textField: UITextField) {
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        textField.addTarget(self, action: #selector(textFieldEditingDidBegin), for: .editingDidBegin)
+        textField.addTarget(self, action: #selector(textFieldEditingDidEnd), for: .editingDidEnd)
+    }
+
     
     // MARK: - Actions
     
