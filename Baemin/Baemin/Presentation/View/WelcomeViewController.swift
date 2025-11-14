@@ -22,7 +22,7 @@ final class WelcomeViewController: UIViewController {
     private let welcomeImageView = UIImageView()
     private let welcomeLabel = UILabel()
     private let userLabel = UILabel()
-    private lazy var backButton = CTAButton()
+    private lazy var gotoHomeButton = CTAButton()
     
     // MARK: - Life Cycle
     
@@ -48,16 +48,16 @@ final class WelcomeViewController: UIViewController {
         
         welcomeLabel.applyStyle(text: "환영합니다", font: .pretendard(.head_b_24))
         
-        backButton.configure(style: .active, title: "뒤로가기")
-        backButton.do {
-            $0.addTarget(self, action: #selector(backButtonDidTapped), for: .touchUpInside)
+        gotoHomeButton.configure(style: .active, title: "메인으로 가기")
+        gotoHomeButton.do {
+            $0.addTarget(self, action: #selector(homeButtonDidTapped), for: .touchUpInside)
         }
     }
     
     // MARK: - Set Layout
     
     private func setLayout() {
-        view.addSubviews(navigationBar, welcomeImageView, welcomeLabel, userLabel, backButton)
+        view.addSubviews(navigationBar, welcomeImageView, welcomeLabel, userLabel, gotoHomeButton)
         
         navigationBar.snp.makeConstraints {
             $0.top.horizontalEdges.equalTo(view.safeAreaLayoutGuide)
@@ -81,7 +81,7 @@ final class WelcomeViewController: UIViewController {
             $0.horizontalEdges.centerX.equalToSuperview()
         }
         
-        backButton.snp.makeConstraints {
+        gotoHomeButton.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(48)
             $0.height.equalTo(52)
@@ -98,12 +98,9 @@ final class WelcomeViewController: UIViewController {
     // MARK: - Actions
     
     @objc
-    func backButtonDidTapped() {
-        if self.navigationController == nil {
-            self.dismiss(animated: true)
-        } else {
-            self.navigationController?.popViewController(animated: true)
-        }
+    func homeButtonDidTapped() {
+        let nav = UINavigationController(rootViewController: HomeViewController())
+        UIApplication.shared.windows.first?.rootViewController = nav
     }
 }
 
